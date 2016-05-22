@@ -21,12 +21,7 @@ def wordcloud(datafile):
     STOPWORDS.add("said")
 
     pony_mask = np.array(Image.open("../pinkyB.jpg"))
-    wc = WordCloud(background_color="black", max_words=2000, mask=pony_mask,
-               stopwords=STOPWORDS)         #maybe width, height??
-    
-    # generate word cloud
-    #wc.generate(text)
-    # store to file
+    wc = WordCloud(background_color="black", max_words=2000, mask=pony_mask, stopwords=STOPWORDS)
 
     #init dictionary with the five categories
     categoriesSet = set(datafile["Category"])
@@ -36,12 +31,12 @@ def wordcloud(datafile):
     # business = datafile.ix[datafile["Category"]=="Business"]
     # print business["Content"].size
 
-
+    #fill index with data from cv
     for index, row in datafile.iterrows():
         categoriesDict[row["Category"]] += str(row["Content"])
 
-    for category, words in categoriesDict.iteritems():
-        wc.generate(words)
+    for category, text in categoriesDict.iteritems():
+        wc.generate(text)
         image = wc.to_image()
         image.save("../wordcloud/wordcloud_" + category + ".jpg")
     return
