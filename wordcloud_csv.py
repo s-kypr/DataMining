@@ -20,7 +20,7 @@ def wordcloud(datafile):
         STOPWORDS.add(word)
     STOPWORDS.add("said")
 
-    pony_mask = np.array(Image.open("../../pinkyB.jpg"))
+    pony_mask = np.array(Image.open("../pinkyB.jpg"))
     wc = WordCloud(background_color="black", max_words=2000, mask=pony_mask,
                stopwords=STOPWORDS)         #maybe width, height??
     
@@ -31,18 +31,11 @@ def wordcloud(datafile):
     #init dictionary with the five categories
     categoriesSet = set(datafile["Category"])
     categoriesDict = dict.fromkeys(categoriesSet,"")
-    print categoriesDict
 
     #Conditional Selection
+    # business = datafile.ix[datafile["Category"]=="Business"]
+    # print business["Content"].size
 
-
-
-
-    business = datafile.ix[datafile["Category"]=="Business"]
-
-    print business["Content"].size
-
-    # 2735
 
     for index, row in datafile.iterrows():
         categoriesDict[row["Category"]] += str(row["Content"])
